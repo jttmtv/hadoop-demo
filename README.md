@@ -2,6 +2,9 @@
 
 ### 1.详细安装教程
 
+https://dblab.xmu.edu.cn/blog/7/
+
+
 
 ### 2.安装检查
 
@@ -9,6 +12,8 @@
 hadoop version # 检查 Hadoop 版本
 java -version # 检查 java 版本
 ```
+
+
 
 ### 3.Hadoop单机配置(非分布式)
 
@@ -25,6 +30,8 @@ cp ./etc/hadoop/*.xml ./input   # 将配置文件作为输入文件
 ./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar grep ./input ./output 'dfs[a-z.]+'
 cat ./output/*          # 查看运行结果
 ```
+
+
 
 ### 4.Hadoop伪分布式配置
 
@@ -80,6 +87,8 @@ Hadoop 的运行方式是由配置文件决定的（运行 Hadoop 时会读取�
 
 此外，伪分布式虽然只需要配置 fs.defaultFS 和 dfs.replication 就可以运行（官方教程如此），不过若没有配置 hadoop.tmp.dir 参数，则默认使用的临时目录为 /tmp/hadoo-hadoop，而这个目录在重启时有可能被系统清理掉，导致必须重新执行 format 才行。所以我们进行了设置，同时也指定 dfs.namenode.name.dir 和 dfs.datanode.data.dir，否则在接下来的步骤中可能会出错。
 
+
+
 配置完成后，启动 Hadoop:
 
 ```bash
@@ -92,7 +101,11 @@ rm -rf ./tmp     # 删除 tmp 文件，注意这会删除 HDFS 中原有的所�
 jps # 查看是否启动成功
 ```
 
+
+
 成功启动后，可以访问 Web 界面 [http://localhost:50070](http://localhost:50070/) 查看 NameNode 和 Datanode 信息，还可以在线查看 HDFS 中的文件。
+
+
 
 ### 5.运行Hadoop伪分布式实例
 
@@ -110,12 +123,16 @@ jps # 查看是否启动成功
 ./bin/hdfs dfs -ls input # 查看HDFS中input目录下的文件列表
 ```
 
+
+
 伪分布式运行 MapReduce 作业的方式跟单机模式相同，区别在于伪分布式读取的是HDFS中的文件。
 
 ```bash
 ./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar grep input output 'dfs[a-z.]+'
 ./bin/hdfs dfs -cat output/*  # 查看运行结果
 ```
+
+
 
 运行结果取回到本地：
 
@@ -125,8 +142,11 @@ rm -rf ./output    # 先删除本地的 output 文件夹（如果存在）
 cat ./output/*
 ```
 
+
+
 关闭 Hadoop
 
 ```bash
 ./sbin/stop-dfs.sh
 ```
+
